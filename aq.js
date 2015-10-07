@@ -20,3 +20,6 @@ function bu(s) {
 
 var a = bu(process.argv[2]);
 log(a);
+
+var str = a.join([separator = ' ']);
+log(str);
