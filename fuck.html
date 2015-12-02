@@ -1,0 +1,87 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<style>
+input , textarea { width:80%; margin:10; padding:10; }
+a { color:blue; text-decoration:underline; }
+</style>
+ <link href="http://getbootstrap.com/dist/css/bootstrap.min.css" rel="stylesheet">
+ <link href="http://getbootstrap.com/examples/signin/signin.css" rel="stylesheet">
+</head>
+<body>
+
+    <div class="container">
+      <!-- Example row of columns -->
+      <div class="row">
+        <div class="col-md-4">
+
+        </div>
+        <div class="col-md-4">
+           <div class="jumbotron">
+      <div class="container">
+        <h1>Hello, 記事本</h1>
+
+        <p><a class="btn btn-primary btn-lg" href="#" role="button">然而什麼事也沒發生</a></p>
+      </div>
+    </div>
+        <label for="title" class="sr-only">標題MEOW</label>
+        <input type="email" id="title" class="form-control" placeholder="標題MEOW" required autofocus></br>
+        <div>
+        <label for="text" class="sr-only">text</label>
+         <textarea id="text" style="height:300px" class="form-control" placeholder="內容"></textarea></br></div>
+         <button onclick="save()">儲存</button>
+         <button onclick="del()">清空</button>
+       </div>
+        <div class="col-md-4">
+
+        </div>
+      </div>
+<div>
+<table id="list">
+</table>
+</div>
+<script>
+
+var oTitle = document.getElementById("title");
+var oText  = document.getElementById("text");
+var oList = document.getElementById("list");
+
+
+
+function save() {
+  var title = oTitle.value;
+  var text  = oText.value;
+  window.localStorage.setItem("notepad:"+title, text);
+  showList();
+}
+
+
+function del() {
+  var title = oTitle.value;
+  var text  = oText.value;
+  window.localStorage.clear("notepad:"+title, text);
+  showList();
+}
+
+function showList() {
+  var rowHtml = "";
+  for (var title in window.localStorage) {
+    if (title.startsWith("notepad:")) {
+      rowHtml += "<tr><td><a onclick=\"loadDoc('"+title+"')\">"+title.substring(8)+"</a></td></tr>"
+    }
+  }
+  oList.innerHTML = rowHtml;
+}
+
+function loadDoc(title) {
+  oTitle.value = title.substring(8);
+  oText.value  = window.localStorage.getItem(title);
+}
+
+
+</script>
+</div>
+</body>
+</html>
