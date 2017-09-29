@@ -17,7 +17,7 @@ function bu(s) {
   }
   return array;
 }
-
+//
 var a = bu(process.argv[2]);
 log(a);
 
